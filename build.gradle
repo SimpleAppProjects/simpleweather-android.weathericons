@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk rootProject.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+
+        vectorDrawables.useSupportLibrary true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlin {
+        jvmToolchain(17)
+    }
+    flavorDimensions 'gms'
+    productFlavors {
+        nongms {
+            dimension 'gms'
+        }
+        fullgms {
+            dimension 'gms'
+        }
+    }
+    namespace 'com.thewizrd.weathericons'
+}
+
+dependencies {
+    implementation project(":shared_resources")
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation "androidx.test.ext:junit:$junit_version"
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation "androidx.annotation:annotation:$annotation_version"
+    implementation "androidx.core:core-ktx:$core_version"
+}
