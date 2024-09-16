@@ -10,7 +10,9 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        vectorDrawables.useSupportLibrary true
+        vectorDrawables {
+            useSupportLibrary true
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -19,16 +21,19 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
     kotlin {
         jvmToolchain(17)
     }
+
     flavorDimensions 'gms'
     productFlavors {
         nongms {
@@ -38,15 +43,18 @@ android {
             dimension 'gms'
         }
     }
+
     namespace 'com.thewizrd.weathericons'
 }
 
 dependencies {
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$desugar_version"
+
     implementation project(":shared_resources")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation "androidx.test.ext:junit:$junit_version"
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
     implementation "androidx.annotation:annotation:$annotation_version"
     implementation "androidx.core:core-ktx:$core_version"
