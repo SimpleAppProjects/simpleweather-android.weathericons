@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
 }
 
 android {
@@ -8,7 +7,6 @@ android {
 
     defaultConfig {
         minSdkVersion libs.versions.minSdkVersion.get().toInteger()
-        targetSdkVersion libs.versions.targetSdkVersion.get().toInteger()
 
         vectorDrawables {
             useSupportLibrary true
@@ -16,6 +14,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildFeatures {
+        resValues true
     }
 
     buildTypes {
@@ -26,12 +28,12 @@ android {
 
     compileOptions {
         coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(21)
     }
 
     flavorDimensions 'gms'
@@ -45,6 +47,12 @@ android {
     }
 
     namespace 'com.thewizrd.weathericons'
+    lint {
+        targetSdk libs.versions.targetSdkVersion.get().toInteger()
+    }
+    testOptions {
+        targetSdk libs.versions.targetSdkVersion.get().toInteger()
+    }
 }
 
 dependencies {
